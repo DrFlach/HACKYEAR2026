@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { isValidPolishAccount, normalizeAccount } from "./account";
+import { isValidPolishAccount, normalizeAccount, checkAccountFormat } from "./account";
 
 describe("isValidPolishAccount", () => {
   it("accepts a known valid account without a PL prefix", () => {
@@ -25,5 +25,21 @@ describe("isValidPolishAccount", () => {
     expect(normalizeAccount("PL 4049 5009 5922 4896 1325 4785 03")).toBe(
       "40495009592248961325478503"
     );
+  });
+});
+
+describe("checkAccountFormat", () => {
+  it("returns PASS with weight 0 for a valid account", () => {
+    const result = checkAccountFormat("40495009592248961325478503");
+    expect(result.status).toBe("PASS");
+    expect(result.weight).toBe(0);
+    expect(result.id).toBe("account-format");
+  });
+
+  it("returns FAIL with positive weight for an invalid account", () => {
+    const result = checkAccountFormat("40495009592248961325478504");
+    expect(result.status).toBe("FAIL");
+    expect(result.weight).toBeGreaterThan(0);
+    expect(result.explanation).toMatch(/not a valid/i);
   });
 });

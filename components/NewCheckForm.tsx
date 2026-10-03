@@ -8,7 +8,11 @@ import { DEMO_SCENARIOS } from "@/lib/demo-scenarios";
 import { extractNip, extractAccount } from "@/lib/email-parsing";
 import type { VatWhitelistOptions } from "@/lib/checks/vat-whitelist";
 
-const DEFAULT_WHITELIST_OPTIONS: VatWhitelistOptions = { mock: true };
+// Manual (non-demo) submissions send no explicit white list override, so
+// the server falls back to the Dashboard's mock/live toggle. Demo
+// scenarios set their own options (see loadScenario below) and must keep
+// working offline regardless of that toggle.
+const DEFAULT_WHITELIST_OPTIONS: VatWhitelistOptions = {};
 
 export default function NewCheckForm() {
   const router = useRouter();

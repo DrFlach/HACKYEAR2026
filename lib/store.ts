@@ -1,9 +1,9 @@
 // The mutable "in-memory store" from SPEC.md: every check that has been
 // run, plus the outcome the user recorded for it. A plain module-level
 // array -- it resets whenever the server process restarts, which is fine
-// for a demo/no-database tool. The /api/verify route is the only reader
-// and writer; the Dashboard/Audit log screens will read it too in a
-// later step.
+// for a demo/no-database tool. /api/verify is the reader/writer; the
+// Dashboard and Audit log screens read it directly (same process, so no
+// extra API route is needed for that).
 
 import type { CheckResult, Supplier } from "./checks/types";
 import type { Verdict } from "./checks/verdict";
@@ -59,4 +59,23 @@ export function setOutcome(id: string, outcome: Outcome): AuditEntry | undefined
 /** Newest first -- used by the Dashboard/Audit log screens. */
 export function listAuditEntries(): AuditEntry[] {
   return [...entries].sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+}
+
+// Dashboard's mock/live toggle for the white list (SPEC.md Screens: "1.
+// Dashboard -- ... mock/live toggle for the white list"). Another bit of
+// process-lifetime in-memory state, same as `entries` above. Manual "New
+// check" submissions default to whatever this is set to; the 3 demo
+// scenarios always force their own mode (mock, or forced-unavailable for
+// "Service outage") so they keep working offline regardless of this toggle.
+export type WhitelistMode = "mock" | "live";
+
+let whitelistMode: WhitelistMode = "mock";
+
+export function getWhitelistMode(): WhitelistMode {
+  return whitelistMode;
+}
+
+export function setWhitelistMode(mode: WhitelistMode): WhitelistMode {
+  whitelistMode = mode;
+  return whitelistMode;
 }

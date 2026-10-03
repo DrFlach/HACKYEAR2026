@@ -10,7 +10,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { findSupplierByNip } from "@/lib/suppliers";
 import { runAllChecks, type EmailInput, type InvoiceInput } from "@/lib/checks/run-checks";
-import { addAuditEntry, getAuditEntry, setOutcome, type OutcomeType } from "@/lib/store";
+import {
+  addAuditEntry,
+  getAuditEntry,
+  setOutcome,
+  getWhitelistMode,
+  type OutcomeType,
+} from "@/lib/store";
 import type { VatWhitelistOptions } from "@/lib/checks/vat-whitelist";
 
 export const dynamic = "force-dynamic";
@@ -63,10 +69,12 @@ export async function POST(req: NextRequest) {
   };
 
   const supplier = findSupplierByNip(invoiceInput.supplierNip);
-  // Mock mode is ON by default per SPEC.md ("default ON for demo");
-  // callers (e.g. the "Service outage" demo scenario) can override it.
+  // Default white list mode comes from the Dashboard's mock/live toggle;
+  // callers (the demo scenario buttons) can still force their own mode
+  // via whitelistOptions, so demos keep working offline regardless of
+  // the toggle's current position.
   const result = await runAllChecks(emailInput, invoiceInput, supplier, {
-    mock: true,
+    mock: getWhitelistMode() === "mock",
     ...whitelistOptions,
   });
 

@@ -1,0 +1,39 @@
+{
+  "entries": {
+    "2046483277_40495009592248961325478503": {
+      "nip": "2046483277",
+      "account": "40495009592248961325478503",
+      "accountAssigned": "TAK",
+      "requestId": "WL-7F2AE9D4",
+      "scenario": "Legit invoice: Hurtownia Kowalski's own, long-used account."
+    },
+    "2046483277_69244915051998392161174484": {
+      "nip": "2046483277",
+      "account": "69244915051998392161174484",
+      "accountAssigned": "NIE",
+      "requestId": "WL-C13D40B8",
+      "scenario": "Account change attack: fraudulent/mule account the attacker asks to pay into. Format is valid (fraudsters use real accounts), but it is not assigned to Hurtownia Kowalski's NIP."
+    },
+    "2695331328_09099958485967788463956080": {
+      "nip": "2695331328",
+      "account": "09099958485967788463956080",
+      "accountAssigned": "TAK",
+      "requestId": "WL-51AC7E22",
+      "scenario": "Elektro-Montaż Nowak's own known account."
+    },
+    "4643231260_34684748022995988455643347": {
+      "nip": "4643231260",
+      "account": "34684748022995988455643347",
+      "accountAssigned": "TAK",
+      "requestId": "WL-8D4F11C6",
+      "scenario": "BudMax Logistyka's own known account."
+    },
+    "6350346541_31679231631208340305204672": {
+      "nip": "6350346541",
+      "account": "31679231631208340305204672",
+      "accountAssigned": "TAK",
+      "requestId": "WL-2A9B6E73",
+      "scenario": "Tech Solutions Zieliński's own known account."
+    }
+  }
+}

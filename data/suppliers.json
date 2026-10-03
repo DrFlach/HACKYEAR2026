@@ -1,0 +1,77 @@
+[
+  {
+    "id": "hurtownia-kowalski",
+    "name": "Hurtownia Kowalski sp. z o.o.",
+    "nip": "2046483277",
+    "knownAccounts": ["40495009592248961325478503"],
+    "domains": ["hurtowniakowalski.pl"],
+    "verifiedPhone": "+48 601 234 567",
+    "paymentHistory": [
+      { "date": "2025-07-05", "amount": 4970, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2025-08-07", "amount": 5410, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2025-09-07", "amount": 5680, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2025-10-07", "amount": 5190, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2025-11-10", "amount": 4580, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2025-12-13", "amount": 5770, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2026-01-16", "amount": 5300, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2026-02-20", "amount": 5090, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2026-03-19", "amount": 4730, "currency": "PLN", "account": "40495009592248961325478503" },
+      { "date": "2026-04-15", "amount": 5180, "currency": "PLN", "account": "40495009592248961325478503" }
+    ]
+  },
+  {
+    "id": "elektro-montaz-nowak",
+    "name": "Elektro-Montaż Nowak sp. z o.o.",
+    "nip": "2695331328",
+    "knownAccounts": ["09099958485967788463956080"],
+    "domains": ["nowak-elektro.pl"],
+    "verifiedPhone": "+48 602 345 678",
+    "paymentHistory": [
+      { "date": "2025-09-05", "amount": 7000, "currency": "PLN", "account": "09099958485967788463956080" },
+      { "date": "2025-10-26", "amount": 9360, "currency": "PLN", "account": "09099958485967788463956080" },
+      { "date": "2025-12-11", "amount": 8180, "currency": "PLN", "account": "09099958485967788463956080" },
+      { "date": "2026-01-30", "amount": 8100, "currency": "PLN", "account": "09099958485967788463956080" },
+      { "date": "2026-03-13", "amount": 7860, "currency": "PLN", "account": "09099958485967788463956080" },
+      { "date": "2026-04-27", "amount": 9050, "currency": "PLN", "account": "09099958485967788463956080" },
+      { "date": "2026-06-09", "amount": 8700, "currency": "PLN", "account": "09099958485967788463956080" }
+    ]
+  },
+  {
+    "id": "budmax-logistyka",
+    "name": "BudMax Logistyka S.A.",
+    "nip": "4643231260",
+    "knownAccounts": ["34684748022995988455643347"],
+    "domains": ["budmax.pl"],
+    "verifiedPhone": "+48 603 456 789",
+    "paymentHistory": [
+      { "date": "2025-06-05", "amount": 13290, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2025-06-26", "amount": 11420, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2025-07-26", "amount": 10600, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2025-08-25", "amount": 12150, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2025-09-16", "amount": 12240, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2025-10-15", "amount": 12710, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2025-11-09", "amount": 13560, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2025-12-07", "amount": 10390, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2026-01-05", "amount": 11840, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2026-01-28", "amount": 10040, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2026-02-25", "amount": 11050, "currency": "PLN", "account": "34684748022995988455643347" },
+      { "date": "2026-03-21", "amount": 12700, "currency": "PLN", "account": "34684748022995988455643347" }
+    ]
+  },
+  {
+    "id": "tech-solutions-zielinski",
+    "name": "Tech Solutions Zieliński sp. z o.o.",
+    "nip": "6350346541",
+    "knownAccounts": ["31679231631208340305204672"],
+    "domains": ["techsolutions.pl"],
+    "verifiedPhone": "+48 604 567 890",
+    "paymentHistory": [
+      { "date": "2025-10-05", "amount": 3280, "currency": "PLN", "account": "31679231631208340305204672" },
+      { "date": "2025-11-21", "amount": 3270, "currency": "PLN", "account": "31679231631208340305204672" },
+      { "date": "2026-01-08", "amount": 3480, "currency": "PLN", "account": "31679231631208340305204672" },
+      { "date": "2026-02-24", "amount": 3600, "currency": "PLN", "account": "31679231631208340305204672" },
+      { "date": "2026-04-17", "amount": 3160, "currency": "PLN", "account": "31679231631208340305204672" },
+      { "date": "2026-06-06", "amount": 2880, "currency": "PLN", "account": "31679231631208340305204672" }
+    ]
+  }
+]

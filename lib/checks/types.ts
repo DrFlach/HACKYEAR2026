@@ -34,6 +34,12 @@ export interface CheckResult {
    * "Verdict logic"); the score is a supporting number shown in the UI.
    */
   weight: number;
+  /**
+   * Only set by the VAT white list check (#3): the request id the real
+   * Ministry of Finance API returns "for this purpose" (SPEC.md) -- i.e.
+   * proof the lookup actually happened. Shown separately in the UI.
+   */
+  requestId?: string;
 }
 
 /** Centralized weight table so every check pulls from the same numbers. */
@@ -41,10 +47,12 @@ export const WEIGHTS = {
   nipChecksum: { fail: 8 },
   accountFormat: { fail: 8 },
   paymentHistory: { warnUnknownSupplier: 10, failNewAccount: 25 },
+  vatWhitelist: { fail: 24, unavailable: 12 },
   senderDomain: { warn: 8, fail: 20 },
   replyTo: { fail: 15, warnUnparseable: 5 },
   pressureLanguage: { warn: 5 },
   amountAnomaly: { warn: 5 },
+  splitPaymentHint: { warn: 4 },
 } as const;
 
 export interface PaymentHistoryEntry {

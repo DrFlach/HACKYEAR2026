@@ -5,8 +5,9 @@
 // required)". Persisted via PATCH /api/verify (SPEC.md: "Everything is
 // stored in the Audit log").
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { Outcome, OutcomeType } from "@/lib/store";
+import { PhoneIcon, XCircleIcon, AlertTriangleIcon, CheckCircleIcon } from "./icons";
 
 const OUTCOME_LABELS: Record<OutcomeType, string> = {
   confirmed_by_phone: "Confirmed by phone with known contact",
@@ -18,10 +19,12 @@ export default function OutcomeButtons({
   checkId,
   outcome,
   onRecorded,
+  style,
 }: {
   checkId: string;
   outcome: Outcome | null;
   onRecorded: (outcome: Outcome) => void;
+  style?: CSSProperties;
 }) {
   const [pendingReason, setPendingReason] = useState(false);
   const [reason, setReason] = useState("");
@@ -50,52 +53,61 @@ export default function OutcomeButtons({
 
   if (outcome) {
     return (
-      <div className="rounded-xl border border-slate-200 bg-white p-5">
-        <h2 className="text-sm font-semibold text-navy">Outcome</h2>
-        <p className="mt-2 text-sm text-slate-700">
-          {OUTCOME_LABELS[outcome.type]}
-          {outcome.reason ? ` -- "${outcome.reason}"` : ""}
+      <section className="card animate-fade-in p-6" style={style}>
+        <header className="flex items-center gap-2">
+          <CheckCircleIcon className="h-5 w-5 text-accent" />
+          <h2 className="text-base font-semibold text-navy">Outcome recorded</h2>
+        </header>
+        <p className="mt-3 text-[15px] font-medium text-navy">{OUTCOME_LABELS[outcome.type]}</p>
+        {outcome.reason && (
+          <p className="mt-1 rounded-lg bg-slate-50 px-3 py-2 text-sm italic text-slate-600">
+            “{outcome.reason}”
+          </p>
+        )}
+        <p className="mt-3 text-xs text-slate-400">
+          Saved to the audit log · {new Date(outcome.recordedAt).toLocaleString()}
         </p>
-        <p className="mt-1 text-xs text-slate-400">
-          Recorded {new Date(outcome.recordedAt).toLocaleString()}
-        </p>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5">
-      <h2 className="text-sm font-semibold text-navy">Record the outcome</h2>
-      <div className="mt-3 flex flex-wrap gap-2">
+    <section className="card animate-fade-up p-6" style={style}>
+      <h2 className="text-base font-semibold text-navy">Record the outcome</h2>
+      <p className="mt-1 text-xs text-slate-500">Every decision is saved to the audit log.</p>
+      <div className="mt-4 grid gap-2 text-left">
         <button
           type="button"
           disabled={submitting !== null}
           onClick={() => recordOutcome("confirmed_by_phone")}
-          className="rounded-md bg-pass px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="btn justify-start bg-pass text-white hover:brightness-95"
         >
+          <PhoneIcon className="h-4 w-4" />
           {OUTCOME_LABELS.confirmed_by_phone}
         </button>
         <button
           type="button"
           disabled={submitting !== null}
           onClick={() => recordOutcome("rejected_as_fraud")}
-          className="rounded-md bg-fail px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="btn justify-start bg-fail text-white hover:brightness-95"
         >
+          <XCircleIcon className="h-4 w-4" />
           {OUTCOME_LABELS.rejected_as_fraud}
         </button>
         <button
           type="button"
           disabled={submitting !== null}
           onClick={() => setPendingReason(true)}
-          className="rounded-md border border-warn px-3 py-2 text-sm font-medium text-warn disabled:opacity-50"
+          className="btn justify-start border border-warn/50 bg-white text-warn hover:bg-warn/5"
         >
+          <AlertTriangleIcon className="h-4 w-4" />
           {OUTCOME_LABELS.paid_anyway}
         </button>
       </div>
 
       {pendingReason && (
-        <div className="mt-3 space-y-2">
-          <label className="block text-sm font-medium text-slate-700" htmlFor="paid-anyway-reason">
+        <div className="animate-fade-in mt-4 space-y-2 rounded-xl bg-warn/5 p-4 ring-1 ring-warn/20">
+          <label className="block text-sm font-medium text-navy" htmlFor="paid-anyway-reason">
             Reason (required to override)
           </label>
           <textarea
@@ -103,7 +115,7 @@ export default function OutcomeButtons({
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             rows={2}
-            className="w-full rounded-md border border-slate-300 p-2 text-sm"
+            className="field mt-0"
             placeholder="e.g. Director approved by phone despite the warning."
           />
           <div className="flex gap-2">
@@ -111,14 +123,14 @@ export default function OutcomeButtons({
               type="button"
               disabled={submitting !== null || reason.trim().length === 0}
               onClick={() => recordOutcome("paid_anyway", reason.trim())}
-              className="rounded-md bg-warn px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+              className="btn bg-warn text-white hover:brightness-95"
             >
               Confirm override
             </button>
             <button
               type="button"
               onClick={() => setPendingReason(false)}
-              className="rounded-md px-3 py-2 text-sm font-medium text-slate-500"
+              className="btn text-slate-500 hover:text-navy"
             >
               Cancel
             </button>
@@ -126,7 +138,7 @@ export default function OutcomeButtons({
         </div>
       )}
 
-      {error && <p className="mt-2 text-sm text-fail">{error}</p>}
-    </div>
+      {error && <p className="mt-3 text-sm text-fail">{error}</p>}
+    </section>
   );
 }

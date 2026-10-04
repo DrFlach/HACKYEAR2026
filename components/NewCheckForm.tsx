@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { DEMO_SCENARIOS } from "@/lib/demo-scenarios";
 import { extractNip, extractAccount } from "@/lib/email-parsing";
 import type { VatWhitelistOptions } from "@/lib/checks/vat-whitelist";
+import { CheckCircleIcon, ShieldCheckIcon } from "./icons";
 
 // Manual (non-demo) submissions send no explicit white list override, so
 // the server falls back to the Dashboard's mock/live toggle. Demo
@@ -126,36 +127,50 @@ export default function NewCheckForm() {
   return (
     <div className="mx-auto max-w-3xl space-y-6 p-8">
       <div>
-        <h1 className="text-2xl font-semibold text-navy">New check</h1>
+        <h1 className="text-3xl font-semibold tracking-tight text-navy">New check</h1>
         <p className="mt-1 text-sm text-slate-600">
           Paste the email and invoice details below, or load a demo scenario.
         </p>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5">
-        <h2 className="text-sm font-semibold text-navy">Demo scenarios</h2>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {DEMO_SCENARIOS.map((scenario) => (
-            <button
-              key={scenario.id}
-              type="button"
-              onClick={() => loadScenario(scenario.id)}
-              title={scenario.description}
-              className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
-                activeScenarioId === scenario.id
-                  ? "border-accent bg-accent text-white"
-                  : "border-slate-300 text-navy hover:bg-slate-50"
-              }`}
-            >
-              {scenario.label}
-            </button>
-          ))}
+      <div className="card p-6">
+        <h2 className="text-base font-semibold text-navy">Demo scenarios</h2>
+        <p className="mt-1 text-sm text-slate-500">
+          Loads a ready-made email and invoice. Works offline.
+        </p>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {DEMO_SCENARIOS.map((scenario) => {
+            const active = activeScenarioId === scenario.id;
+            return (
+              <button
+                key={scenario.id}
+                type="button"
+                onClick={() => loadScenario(scenario.id)}
+                aria-pressed={active}
+                className={`rounded-xl border p-4 text-left transition-all ${
+                  active
+                    ? "border-accent bg-accent/5 ring-2 ring-accent/20"
+                    : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                }`}
+              >
+                <span className="flex items-center justify-between gap-2">
+                  <span className={`text-sm font-semibold ${active ? "text-accent" : "text-navy"}`}>
+                    {scenario.label}
+                  </span>
+                  {active && <CheckCircleIcon className="h-4 w-4 flex-none text-accent" />}
+                </span>
+                <span className="mt-1 block text-xs leading-relaxed text-slate-500">
+                  {scenario.description}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <fieldset className="rounded-xl border border-slate-200 bg-white p-5">
-          <legend className="px-1 text-sm font-semibold text-navy">Email</legend>
+        <fieldset className="card p-6">
+          <legend className="float-left mb-4 w-full text-base font-semibold text-navy">Email</legend>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block text-sm">
               <span className="font-medium text-slate-700">From *</span>
@@ -167,7 +182,7 @@ export default function NewCheckForm() {
                   clearScenario();
                 }}
                 placeholder="biuro@supplier.pl"
-                className="mt-1 w-full rounded-md border border-slate-300 p-2"
+                className="field"
                 required
               />
             </label>
@@ -181,7 +196,7 @@ export default function NewCheckForm() {
                   clearScenario();
                 }}
                 placeholder="(optional)"
-                className="mt-1 w-full rounded-md border border-slate-300 p-2"
+                className="field"
               />
             </label>
           </div>
@@ -194,7 +209,7 @@ export default function NewCheckForm() {
                 setEmailSubject(e.target.value);
                 clearScenario();
               }}
-              className="mt-1 w-full rounded-md border border-slate-300 p-2"
+              className="field"
             />
           </label>
           <label className="mt-4 block text-sm">
@@ -206,7 +221,7 @@ export default function NewCheckForm() {
                 clearScenario();
               }}
               rows={6}
-              className="mt-1 w-full rounded-md border border-slate-300 p-2 font-mono text-sm"
+              className="field font-mono text-sm"
               placeholder="Paste the email body here. You can also paste the raw email including the account number -- Auto-extract below will pull out the NIP and account number for you."
             />
           </label>
@@ -214,7 +229,7 @@ export default function NewCheckForm() {
             <button
               type="button"
               onClick={handleAutoExtract}
-              className="rounded-md border border-slate-300 px-3 py-1.5 text-xs font-medium text-navy hover:bg-slate-50"
+              className="btn btn-secondary px-3 py-1.5 text-xs"
             >
               Auto-extract NIP &amp; account from body
             </button>
@@ -222,8 +237,8 @@ export default function NewCheckForm() {
           </div>
         </fieldset>
 
-        <fieldset className="rounded-xl border border-slate-200 bg-white p-5">
-          <legend className="px-1 text-sm font-semibold text-navy">Invoice</legend>
+        <fieldset className="card p-6">
+          <legend className="float-left mb-4 w-full text-base font-semibold text-navy">Invoice</legend>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block text-sm">
               <span className="font-medium text-slate-700">Supplier NIP *</span>
@@ -235,7 +250,7 @@ export default function NewCheckForm() {
                   clearScenario();
                 }}
                 placeholder="10 digits"
-                className="mt-1 w-full rounded-md border border-slate-300 p-2"
+                className="field"
                 required
               />
             </label>
@@ -248,7 +263,7 @@ export default function NewCheckForm() {
                   setSupplierName(e.target.value);
                   clearScenario();
                 }}
-                className="mt-1 w-full rounded-md border border-slate-300 p-2"
+                className="field"
               />
             </label>
             <label className="block text-sm sm:col-span-2">
@@ -261,7 +276,7 @@ export default function NewCheckForm() {
                   clearScenario();
                 }}
                 placeholder="26 digits, optional PL prefix"
-                className="mt-1 w-full rounded-md border border-slate-300 p-2 font-mono"
+                className="field font-mono"
                 required
               />
             </label>
@@ -276,7 +291,7 @@ export default function NewCheckForm() {
                   setAmount(e.target.value);
                   clearScenario();
                 }}
-                className="mt-1 w-full rounded-md border border-slate-300 p-2"
+                className="field"
                 required
               />
             </label>
@@ -288,7 +303,7 @@ export default function NewCheckForm() {
                   setCurrency(e.target.value);
                   clearScenario();
                 }}
-                className="mt-1 w-full rounded-md border border-slate-300 p-2"
+                className="field"
               >
                 <option value="PLN">PLN</option>
                 <option value="EUR">EUR</option>
@@ -304,7 +319,7 @@ export default function NewCheckForm() {
                   setDueDate(e.target.value);
                   clearScenario();
                 }}
-                className="mt-1 w-full rounded-md border border-slate-300 p-2"
+                className="field"
               />
             </label>
           </div>
@@ -315,9 +330,19 @@ export default function NewCheckForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-md bg-accent px-4 py-3 text-sm font-semibold text-white disabled:opacity-50"
+          className="btn btn-primary w-full py-3.5 text-base"
         >
-          {submitting ? "Checking…" : "Verify before paying"}
+          {submitting ? (
+            <>
+              <span className="animate-spin-slow h-4 w-4 rounded-full border-2 border-white/40 border-t-white" />
+              Checking…
+            </>
+          ) : (
+            <>
+              <ShieldCheckIcon className="h-5 w-5" />
+              Verify before paying
+            </>
+          )}
         </button>
       </form>
     </div>

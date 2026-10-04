@@ -43,7 +43,7 @@ export default function WhitelistToggle() {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5">
+    <div className="card p-5">
       <h2 className="text-sm font-semibold text-navy">VAT white list source</h2>
       <p className="mt-1 text-sm text-slate-600">
         Mock answers from seed data and always works offline. Live calls the real Ministry of

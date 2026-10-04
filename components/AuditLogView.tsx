@@ -28,7 +28,7 @@ export default function AuditLogView() {
   return (
     <div className="mx-auto max-w-6xl space-y-4 p-8">
       <div>
-        <h1 className="text-2xl font-semibold text-navy">Audit log</h1>
+        <h1 className="text-3xl font-semibold tracking-tight text-navy">Audit log</h1>
         <p className="mt-1 text-sm text-slate-600">
           Every check run this session, and the outcome recorded for it.
         </p>
@@ -36,7 +36,7 @@ export default function AuditLogView() {
 
       {error && <p className="text-sm text-fail">{error}</p>}
 
-      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+      <div className="overflow-x-auto card">
         <table className="w-full min-w-[900px] text-left text-sm">
           <thead>
             <tr className="border-b border-slate-200 text-xs font-medium uppercase tracking-wide text-slate-500">

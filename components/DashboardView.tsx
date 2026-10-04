@@ -32,14 +32,14 @@ export default function DashboardView() {
     <div className="mx-auto max-w-4xl space-y-6 p-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-navy">Dashboard</h1>
+          <h1 className="text-3xl font-semibold tracking-tight text-navy">Dashboard</h1>
           <p className="mt-1 text-sm text-slate-600">
             Pre-transfer checks run so far, this session.
           </p>
         </div>
         <Link
           href="/new-check"
-          className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-white"
+          className="btn btn-primary"
         >
           New check
         </Link>
@@ -48,7 +48,7 @@ export default function DashboardView() {
       {error && <p className="text-sm text-fail">{error}</p>}
 
       <div className="grid gap-4 sm:grid-cols-4">
-        <div className="rounded-xl border border-slate-200 bg-white p-4">
+        <div className="card p-4">
           <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
             Total checks
           </p>
@@ -78,7 +78,7 @@ export default function DashboardView() {
 
       <WhitelistToggle />
 
-      <div className="rounded-xl border border-slate-200 bg-white">
+      <div className="card">
         <h2 className="border-b border-slate-200 px-5 py-3 text-sm font-semibold text-navy">
           Recent checks
         </h2>

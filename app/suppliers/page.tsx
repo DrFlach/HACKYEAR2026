@@ -13,7 +13,7 @@ export default function SuppliersPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-8">
       <div>
-        <h1 className="text-2xl font-semibold text-navy">Suppliers</h1>
+        <h1 className="text-3xl font-semibold tracking-tight text-navy">Suppliers</h1>
         <p className="mt-1 text-sm text-slate-600">
           Known suppliers and the data checks compare new invoices against.
         </p>
@@ -24,7 +24,7 @@ export default function SuppliersPage() {
           const amounts = supplier.paymentHistory.map((p) => p.amount);
           const currency = supplier.paymentHistory[0]?.currency ?? "PLN";
           return (
-            <div key={supplier.id} className="rounded-xl border border-slate-200 bg-white p-5">
+            <div key={supplier.id} className="card p-5">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h2 className="text-base font-semibold text-navy">{supplier.name}</h2>
                 <span className="font-mono text-sm text-slate-500">NIP {supplier.nip}</span>
